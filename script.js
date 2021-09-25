@@ -7,7 +7,8 @@ let no = '';
 //this flag is used to say that an operation has been performed
 let operated_now = 0;
 let d = '';
-
+//this is for getting calculations suchas .2*.1 correct
+let cf = 10;
 
 function add(a,b)
 {
@@ -15,11 +16,11 @@ function add(a,b)
 }
 function sub(a,b)
 {
-    return a-b;
+    return (a-b);
 }
 function mult(a,b)
 {
-    return a*b;
+    return (a * cf) * (b * cf) / (cf * cf);
 }
 function div(a,b)
 {
@@ -39,11 +40,8 @@ function operate(a,b,op)
     {
         if(b == 0)
         {
-
             disp.textContent = 'Really?';
-            btns.forEach(btn => btn.disabled = true);
-            clear.disabled = false;
-        
+            opbtns.forEach(btn=>btn.disabled = true);
         }
         else
         {
@@ -51,25 +49,26 @@ function operate(a,b,op)
         }
     }
     dispCont.length = 0;
-    dispCont.push(disp.textContent)
+    dispCont.push(disp.textContent);
     //console.log(dispCont)
-    no = ''
+    no = '';
     operated_now++;
 }
 //this container is for display of calculator
-let disp = document.querySelector('.display')
+let disp = document.querySelector('.display');
 //this container is to access all the buttons on the page
 let btns = document.querySelectorAll('button');
 //this container is for the AC button
 let clear = document.querySelector('.AC');
 btns.forEach(btn => btn.addEventListener('click', popDisp));
 let dot = document.querySelector('#dot');
-
+let opbtns = document.querySelectorAll('.operators');
 
 function popDisp(e)
 {   
     if(e.target.className == 'numbers')
     {
+        opbtns.forEach(btn=>btn.disabled = false);
         //this logic enters the input on the screen and also stores the first number
         disp.textContent += e.target.textContent;
         no += e.target.textContent;
@@ -121,7 +120,7 @@ function popDisp(e)
             operate(parseFloat(dispCont[0]),parseFloat(dispCont[1]),op);
             c2 = 0;
             op = '';
-            dot.disabled = true;
+            dot.disabled = false; 
         }
     }//this is to reset everything
     else if(e.target.className == 'AC')
