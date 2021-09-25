@@ -1,11 +1,13 @@
 // These are flag variables to stop opertaions and equals to sign 
-let c2 = c3 = 0;
+let c2 = 0, c3 = 1;
 //this array is used to sote the 2 operands
 let dispCont = [];
 //this takes the individual number
 let no = '';
 //this flag is used to say that an operation has been performed
 let operated_now = 0;
+let d = '';
+
 
 function add(a,b)
 {
@@ -34,17 +36,20 @@ function operate(a,b,op)
     else if(op == 'mult')
         disp.textContent = mult(a,b);
     else if(op == 'div')
+    {
         if(b == 0)
         {
+
             disp.textContent = 'Really?';
             btns.forEach(btn => btn.disabled = true);
             clear.disabled = false;
+        
         }
         else
         {
             disp.textContent = div(a,b);
         }
-    
+    }
     dispCont.length = 0;
     dispCont.push(disp.textContent)
     //console.log(dispCont)
@@ -56,8 +61,10 @@ let disp = document.querySelector('.display')
 //this container is to access all the buttons on the page
 let btns = document.querySelectorAll('button');
 //this container is for the AC button
-let clear = document.querySelector('.AC')
+let clear = document.querySelector('.AC');
 btns.forEach(btn => btn.addEventListener('click', popDisp));
+let dot = document.querySelector('#dot');
+
 
 function popDisp(e)
 {   
@@ -90,6 +97,7 @@ function popDisp(e)
             dispCont.push(no);
             no = '';
         }
+        dot.disabled = false;
         disp.textContent += e.target.textContent; 
         c2++;
         op = e.target.id
@@ -113,6 +121,7 @@ function popDisp(e)
             operate(parseFloat(dispCont[0]),parseFloat(dispCont[1]),op);
             c2 = 0;
             op = '';
+            dot.disabled = true;
         }
     }//this is to reset everything
     else if(e.target.className == 'AC')
@@ -141,8 +150,43 @@ function popDisp(e)
         disp.textContent += e.target.textContent; 
         operated_now = 0;
         op = e.target.id
-        
+        dot.disabled = false
 
     }    
+
+    if(e.target.id == 'dot')
+    {
+        dot.disabled = true;
+    } 
+
+    if(e.target.className == 'back')
+    {   
+        if(operated_now != 1)
+        {
+            d = disp.textContent
+            console.log(d)
+            s = d.slice(-1);
+            disp.textContent = d.slice(0,-1)
+            console.log(dispCont, no, operated_now)
+            if(s != '' )
+            {
+                if(s == '\u00f7' || s == '\u00d7' || s == '+' || s == '-')
+                {
+                    c2 = 0;
+                    dispCont.pop();
+                    op = ''
+                    no = ''
+                }
+                else if(s == '.')
+                {
+                    dot.disabled = false;
+                }
+                else
+                {
+                    no = no.slice(0,-1);
+                }
+            }
+        }
+    }
     
 }
