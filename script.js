@@ -109,18 +109,22 @@ function popDisp(e)
     }//this is when equals i pressed to calculate
     else if(e.target.className == 'equals' && c3 == 0)
     {
-        dispCont.push(no);
-        
-        if(dispCont[0] == '' || dispCont[1] == '')
-            dispCont.pop();
-
-        if(dispCont.length == 2 && dispCont[1] != '')
+        if(dispCont.length != 0)
         {
-            c3++;
-            operate(parseFloat(dispCont[0]),parseFloat(dispCont[1]),op);
-            c2 = 0;
-            op = '';
-            dot.disabled = false; 
+            dispCont.push(no);
+            no = '';
+            if(dispCont[0] == '' || dispCont[1] == '')
+                dispCont.pop();
+
+            if(dispCont.length == 2 && dispCont[1] != '')
+            {
+                c3++;
+                operate(parseFloat(dispCont[0]),parseFloat(dispCont[1]),op);
+                c2 = 0;
+                op = '';
+                dot.disabled = false; 
+                
+            }
         }
     }//this is to reset everything
     else if(e.target.className == 'AC')
@@ -166,7 +170,7 @@ function popDisp(e)
             console.log(d)
             s = d.slice(-1);
             disp.textContent = d.slice(0,-1)
-            console.log(dispCont, no, operated_now)
+            
             if(s != '' )
             {
                 if(s == '\u00f7' || s == '\u00d7' || s == '+' || s == '-')
