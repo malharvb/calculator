@@ -103,6 +103,7 @@ function popDisp(e)
         //console.log(dispCont)
         c3 = 0;
         operated_now = 0;
+        
 
         
         //console.log(dispCont +' ' + op)
@@ -145,7 +146,7 @@ function popDisp(e)
     //this is for when after entering 2 numbers another operator is clicked
     if(no != '' && dispCont.length == 1 && e.target.className == 'operators')
     {
-        
+
         dispCont.push(no);
         no = '';
         c3 == 0;
@@ -164,19 +165,40 @@ function popDisp(e)
 
     if(e.target.className == 'back')
     {   
-        if(operated_now != 1)
+        if(disp.textContent != '')
         {
-            d = disp.textContent
-            console.log(d)
+            d = disp.textContent;
+        
             s = d.slice(-1);
             disp.textContent = d.slice(0,-1)
-            
+
+            tp = [];
+            //regex to break a string when it encounter +,-,/,*
+            tp = disp.textContent.split(/[\+\-\u00f7\u00d7]/);
+            console.log(tp);
+            if(tp.length == 2)
+            {
+                tp.pop();
+            }
+            if(tp[0] != '')
+            {
+                dispCont[0] = tp[0];
+            }
+            else
+            {
+                no = ''
+                dispCont.length = 0
+            }
+            if(dispCont.length == 1)
+            {
+                no = '';
+            }
+            console.log(dispCont,no)
             if(s != '' )
             {
                 if(s == '\u00f7' || s == '\u00d7' || s == '+' || s == '-')
                 {
                     c2 = 0;
-                    dispCont.pop();
                     op = ''
                     no = ''
                 }
@@ -186,10 +208,13 @@ function popDisp(e)
                 }
                 else
                 {
-                    no = no.slice(0,-1);
+                    no = no.slice(0,-1)
                 }
             }
         }
     }
+            
+        
+    
     
 }
