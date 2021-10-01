@@ -100,7 +100,7 @@ function popDisp(e)
         dot.disabled = false;
         disp.textContent += e.target.textContent; 
         c2++;
-        op = e.target.id
+        op = e.target.id;
         //console.log(dispCont)
         c3 = 0;
         operated_now = 0;
@@ -159,8 +159,8 @@ function popDisp(e)
         {
             disp.textContent += e.target.textContent; 
             operated_now = 0;
-            op = e.target.id
-            dot.disabled = false
+            op = e.target.id;
+            dot.disabled = false;
         }
 
     }    
@@ -205,7 +205,7 @@ function popDisp(e)
             }
             else
             {
-                no = no.slice(0,-1)
+                no = no.slice(0,-1);
             }
         }
 
