@@ -42,6 +42,7 @@ function operate(a,b,op)
         {
             disp.textContent = 'Really?';
             opbtns.forEach(btn=>btn.disabled = true);
+        
         }
         else
         {
@@ -151,11 +152,16 @@ function popDisp(e)
         dispCont.push(no);
         no = '';
         c3 == 0;
+        
         operate(parseFloat(dispCont[0]),parseFloat(dispCont[1]),op);
-        disp.textContent += e.target.textContent; 
-        operated_now = 0;
-        op = e.target.id
-        dot.disabled = false
+
+        if(disp.textContent != 'Really?')
+        {
+            disp.textContent += e.target.textContent; 
+            operated_now = 0;
+            op = e.target.id
+            dot.disabled = false
+        }
 
     }    
 
@@ -164,6 +170,50 @@ function popDisp(e)
         dot.disabled = true;
     } 
 
+
+    if(e.target.className == 'back' && disp.textContent != '' && disp.textContent != 'Really?')
+    {
+        console.log(dispCont);
+        
+        s = disp.textContent.slice(-1);
+        disp.textContent = disp.textContent.slice(0,-1)
+        //tp is temp array to find current state of Display on calculator as i have used push and pop based on operators in arithematic operations
+
+        if(op == '' && dispCont.length == 1)
+        {
+            tp = [];
+            tp = disp.textContent.split(/[\+\-\u00f7\u00d7]/);
+            console.log(tp);
+            if(tp[1] == '')
+            {
+                tp.pop();
+            }
+            dispCont = tp;
+            console.log('new logic' + dispCont);
+        }
+        else if(s != '' )
+        {
+            if(s == '\u00f7' || s == '\u00d7' || s == '+' || s == '-')
+            {
+                c2 = 0;
+                op = ''
+                no = ''
+            }
+            else if(s == '.')
+            {
+                dot.disabled = false;
+            }
+            else
+            {
+                no = no.slice(0,-1)
+            }
+        }
+
+        if(dispCont[1] == '' || dispCont[0] == '')
+        {
+            dispCont.pop();
+        }
+    }
 
             
         

@@ -45,7 +45,7 @@ html, body
     word-break: break-all;
 }
 
-.numbers, .operators, .equals, .AC
+.numbers, .operators, .equals, .AC, .back
 {
     flex: 1 1 auto;
     width: 18%;
@@ -60,9 +60,9 @@ html, body
     background-color: white;
     color: black;
 }
-.AC
+.AC, .back
 {
-    width: 100%
+    width: 40%
 }
 .numbers
 {
