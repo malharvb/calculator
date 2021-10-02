@@ -49,6 +49,10 @@ function operate(a,b,op)
             disp.textContent = div(a,b);
         }
     }
+    if(disp.textContent != 'Really?')
+    {
+        disp.textContent = Math.round(parseFloat((disp.textContent * Math.pow(10, 2)).toFixed(2))) / Math.pow(10, 2);
+    }
     dispCont.length = 0;
     dispCont.push(disp.textContent);
     //console.log(dispCont)
@@ -64,15 +68,31 @@ let clear = document.querySelector('.AC');
 btns.forEach(btn => btn.addEventListener('click', popDisp));
 let dot = document.querySelector('#dot');
 let opbtns = document.querySelectorAll('.operators');
+let numbtns = document.querySelectorAll('.numbers');
+
 
 function popDisp(e)
-{   
+{    
     if(e.target.className == 'numbers')
     {
+        let c1 = 0;
+        //console.log(no.length);
+        if(no.length >= 9)
+        {
+            c1 = 1;
+        }
+        else
+        {
+            c1 = 0;
+        }
+        
         opbtns.forEach(btn=>btn.disabled = false);
         //this logic enters the input on the screen and also stores the first number
-        disp.textContent += e.target.textContent;
-        no += e.target.textContent;
+        if(c1 == 0)
+        {
+            disp.textContent += e.target.textContent;
+            no += e.target.textContent;
+        }
         //console.log(dispCont)
         //this condition is executed when an operation has just been performed
         if(operated_now > 0)
@@ -96,6 +116,7 @@ function popDisp(e)
         {
             dispCont.push(no);
             no = '';
+            console.log(no.length)
         }
         dot.disabled = false;
         disp.textContent += e.target.textContent; 
